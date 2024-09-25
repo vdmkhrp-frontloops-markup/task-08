@@ -18,12 +18,17 @@ $icon-sizes: 15, 20;
 $main-font: "Roboto", sans-serif;
 $secondary-font: "Playfair", serif;
 
+$dark: #000;
+$light: #fff;
+$gray: #969494;
+$bg-color: #f8ebe9;
+
 body {
   margin: 0;
   min-height: 100vh;
   display: grid;
   place-items: center;
-  background-color: #f8ebe9;
+  background-color: $bg-color;
   font-family: $main-font;
   font-size: 18px;
   padding: 15px;
@@ -43,15 +48,10 @@ body {
   position: relative;
   width: 100%;
   max-width: 1020px;
-  background-color: #fff;
+  background-color: $light;
   display: flex;
   flex-direction: column;
   box-shadow: 6px 26px 26px 0px rgb(221, 177, 165);
-  border-radius: 2px;
-
-  @media (width >= 768px) {
-    flex-direction: row;
-  }
 
   &__header {
     position: absolute;
@@ -59,10 +59,10 @@ body {
     right: 0;
     display: flex;
     justify-content: space-between;
-    column-gap: 30px;
+    column-gap: 20px;
     padding-top: 35px;
-    padding-right: 50px;
-    padding-left: 35px;
+    padding-right: clamp(20px, 3vw, 50px);
+    padding-left: clamp(15px, 3vw, 35px);
   }
 
   &__link {
@@ -70,31 +70,31 @@ body {
     display: inline-flex;
     align-items: center;
     column-gap: 10px;
-    font-size: 14px;
+    font-size: clamp(12px, 3vw, 14px);
     text-decoration: none;
     font-weight: 500;
-    color: #969494;
+    color: $gray;
     transition-property: color, opacity;
     transition-duration: 200ms;
     transition-timing-function: ease;
 
     @media (hover: hover) {
       &:hover {
-        color: #000;
+        color: $dark;
       }
     }
 
     &--active {
       pointer-events: none;
-      color: #000;
+      color: $dark;
     }
 
     &--inversion {
-      color: #000;
+      color: $dark;
 
       @media (hover: hover) {
         &:hover {
-          color: #969494;
+          color: $gray;
         }
       }
     }
@@ -106,27 +106,18 @@ body {
 
   &__nav {
     display: flex;
-    column-gap: 35px;
+    column-gap: clamp(12px, 3vw, 35px);
   }
 
   &__image {
-    height: 200px;
+    height: 150px;
     min-width: 200px;
-    border-top-left-radius: inherit;
-    border-bottom-left-radius: inherit;
 
     img {
       display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-top-left-radius: inherit;
-      border-bottom-left-radius: inherit;
-    }
-
-    @media (width >= 768px) {
-      max-width: 354px;
-      height: auto;
     }
   }
 
@@ -138,10 +129,6 @@ body {
     display: flex;
     flex-direction: column;
     row-gap: 34px;
-
-    @media (width >= 768px) {
-      padding-top: 160px;
-    }
   }
 
   &__content-header {
@@ -151,21 +138,22 @@ body {
   }
 
   &__title {
-    font-size: clamp(52px, 6vw, 68px);
+    font-size: clamp(34px, 6vw, 68px);
     font-family: $secondary-font;
     line-height: 0.9;
 
     span {
       display: flex;
       align-items: center;
-      column-gap: 20px;
+      column-gap: clamp(10px, 3vw, 20px);
 
       &::after {
         content: "";
         display: block;
-        width: 94px;
+        width: 100%;
+        max-width: 94px;
         height: 4px;
-        background-color: #000;
+        background-color: $dark;
       }
     }
   }
@@ -217,21 +205,37 @@ body {
     aspect-ratio: 1;
     border: none;
     border-radius: 50%;
-    background-color: rgba(#fff, 0.8);
+    background-color: rgba($light, 0.8);
     cursor: pointer;
     transition: background-color 200ms ease-in;
+    color: $dark;
 
     @media (hover: hover) {
       &:hover {
-        background-color: #fff;
+        background-color: $light;
       }
     }
   }
 
   &__text {
-    font-size: clamp(14px, 6vw, 18px);
+    font-size: clamp(14px, 4vw, 18px);
     line-height: 1.6;
     flex-grow: 1;
     flex-basis: 200px;
+  }
+}
+
+@media (width >= 768px) {
+  .card {
+    flex-direction: row;
+  }
+
+  .card__image {
+    max-width: 354px;
+    height: auto;
+  }
+
+  .card__content {
+    padding-top: 160px;
   }
 }
